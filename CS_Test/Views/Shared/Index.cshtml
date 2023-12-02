@@ -1,0 +1,61 @@
+﻿@model List<CS_Test.DTOs.EmployeeDTO>
+
+@{
+    ViewData["PageTitle"] = "Working Hours";
+}
+
+<style>
+
+    h1 {
+        margin: auto;
+        font-size: 40px;
+        text-align: center;
+        padding: 50px;
+    }
+
+    table {
+        width: 50%;
+        margin: auto;
+        border-collapse: collapse;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr.Red {
+        background-color: #ffcccc; /* Light red for rows with less than 100 hours */
+    }
+
+</style>
+
+<h1>@ViewData["PageTitle"]</h1>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Total Time Worked (hours)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr class="@((employee.TotalWorkHours < 100) ? "Red" : "")">
+                <td>@employee.FullName</td>
+                <td>@(employee.TotalWorkHours) hr</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
