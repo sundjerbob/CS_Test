@@ -24,7 +24,10 @@ namespace CS_Test
                 )
             );
 
-           
+            
+            // Provide ChartService object for injection inside ChartController class
+            services.AddSingleton<IChartService, ChartService>(provider => new ChartService());
+
 
             // Add controllers and views
             services.AddControllersWithViews();
@@ -52,11 +55,18 @@ namespace CS_Test
 
             // Configure routing for controllers
             app.UseEndpoints(endpoints =>
-            {  
+            {
+                endpoints.MapControllerRoute(
+                    name: "chart",
+                    pattern: "chart",
+                    defaults: new { controller = "Chart", action = "GetPieChart" }
+                );
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Employee}/{action=Index}/{id?}"
                 );
+
 
             });
         }
